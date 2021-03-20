@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken")
 const auth = require("../middleware/auth");
 
+// register route
 router.post("/register",async (req, res) =>{
     // console.log(req.body);
     try{
@@ -48,6 +49,7 @@ router.post("/register",async (req, res) =>{
 
 });
 
+// login route
 router.post("/login", async (req, res) =>{
     // console.log(req.body);
     try{
@@ -80,6 +82,7 @@ router.post("/login", async (req, res) =>{
     }
 })
 
+// delete route
 router.delete("/delete", auth, async (req, res) => {
     try {
       const deletedUser = await User.findByIdAndDelete(req.user);
@@ -88,7 +91,8 @@ router.delete("/delete", auth, async (req, res) => {
       res.status(500).json({ error: err.message });
     }
 });
-  
+
+//tokenIsValid route
 router.post("/tokenIsValid", async (req, res) => {
     try {
       const token = req.header("x-auth-token");
@@ -105,7 +109,8 @@ router.post("/tokenIsValid", async (req, res) => {
       res.status(500).json({ error: err.message });
     }
 });
-  
+
+// homepage route
 router.get("/", auth, async (req, res) => {
     const user = await User.findById(req.user);
     res.json({
@@ -116,6 +121,7 @@ router.get("/", auth, async (req, res) => {
 
 });
 
+// profile route
 router.get("/profile", auth, async (req, res) => {
     const user = await User.findById(req.user);
     res.json({
@@ -124,6 +130,18 @@ router.get("/profile", auth, async (req, res) => {
     });
     console.log(user.userName, user.email, user.password);
 
+});
+
+// dashboard route
+router.get("/dashboard", (req, res) => {
+    res.json({
+      error: null,
+      data: {
+        title: "My dashboard",
+        content: "dashboard content",
+        user: req.user,
+      },
+    });
 });
 
 module.exports = router;
