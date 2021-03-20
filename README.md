@@ -1,3 +1,3 @@
-# MERN Signup/Login App
+# Getting Started with Create React App
 
-MERN Signup/Login App
+MERN-Auth-App
