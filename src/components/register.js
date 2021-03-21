@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import UserContext from "../context/userContext";
 import Axios from "axios";
 import ErrorNotice from "./ErrorNotice";
+import config from "../config";
 
 export default function Register() {
   const [email, setEmail] = useState();
@@ -19,8 +20,8 @@ export default function Register() {
 
     try {
       const newUser = { email, password, passwordCheck, userName };
-      await Axios.post("http://localhost:5000/users/register", newUser);
-      const loginRes = await Axios.post("http://localhost:5000/users/login", {
+      await Axios.post(`${config.baseUrl}/register`, newUser);
+      const loginRes = await Axios.post(`${config.baseUrl}/login`, {
         email,
         password,
       });
@@ -29,15 +30,15 @@ export default function Register() {
         user: loginRes.data.user,
       });
       localStorage.setItem("auth-token", loginRes.data.token);
-      history.push("/");
+      history.push("/dashboard");
     } catch (err) {
       err.response.data.msg && setError(err.response.data.msg);
     }
   };
 
   return (
-    <div className="page">
-      <h2>Register</h2>
+    <div className="register_section">
+      <h2 className="title">Register</h2>
       {error && (
         <ErrorNotice message={error} clearError={() => setError(undefined)} />
       )}

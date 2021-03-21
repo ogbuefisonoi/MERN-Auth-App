@@ -8,6 +8,8 @@ import Login from "./components/login";
 import Register from "./components/register";
 import Dashboard from "./components/dashboard";
 import UserContext from "./context/userContext";
+import { Redirect } from 'react-router';
+import config from "./config";
 
 
 export default function App() {
@@ -15,6 +17,14 @@ export default function App() {
     token: undefined,
     user: undefined,
   });
+
+  const authGuard = (Component) => () => {
+    return localStorage.getItem("auth-token") ? (
+      <Component />
+    ) : (
+      <Redirect to="/login" />
+    );
+  };
 
   useEffect(() => {
     const checkLoggedIn = async () => {
@@ -24,12 +34,12 @@ export default function App() {
         token = "";
       }
       const tokenRes = await Axios.post(
-        "http://localhost:5000/users/tokenIsValid",
+        `${config.baseUrl}/tokenIsValid`,
         null,
         { headers: { "x-auth-token": token } }
       );
       if (tokenRes.data) {
-        const userRes = await Axios.get("http://localhost:5000/users/", {
+        const userRes = await Axios.get(`${config.baseUrl}/`, {
           headers: { "x-auth-token": token },
         });
         setUserData({
@@ -52,8 +62,8 @@ export default function App() {
               <Route exact path="/" component={Home} />
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
-              <Route path="/profile" component={Profile} />
-              <Route path="/dashboard" component={Dashboard}/>
+              <Route path="/profile" render={authGuard(Profile)} />
+              <Route path="/dashboard" render={authGuard(Dashboard)}/>
             </Switch>
           </div>
         </UserContext.Provider>

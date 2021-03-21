@@ -76,7 +76,7 @@ router.post("/login", async (req, res) =>{
                 email: user.email,
             },
         });
-        console.log(user.userName, user.password, user.email);
+        // console.log("login request sent:", user.userName, user.password, user.email);
     } catch(err){
         res.status(400).json({error: err.message});
     }
@@ -117,7 +117,6 @@ router.get("/", auth, async (req, res) => {
       userName: user.userName,
       id: user._id,
     });
-    console.log(user.userName, user.email, user.password);
 
 });
 
@@ -127,8 +126,11 @@ router.get("/profile", auth, async (req, res) => {
     res.json({
       userName: user.userName,
       id: user._id,
+      email: user.email,
+      password: user.password,
     });
-    console.log(user.userName, user.email, user.password);
+    // console.log("profile:", user.userName, user.email, user.password);
+    // console.log(res);
 
 });
 

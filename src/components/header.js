@@ -11,6 +11,7 @@ export default function Header() {
   const register = () => history.push("/register");
   const login = () => history.push("/login");
   const profile = () => history.push("/profile");
+  const dashboard = () => history.push("/dashboard");
   const logout = () => {
     setUserData({
       token: undefined,
@@ -26,8 +27,9 @@ export default function Header() {
         <nav className="auth-options">
             {userData.user ? (
                 <>
-                <button onClick={logout}>Log out</button>
+                <button onClick={dashboard}>Dashboard</button>
                 <button onClick={profile}>Profile</button>
+                <button onClick={logout}>Log out</button>
                 </>
             ) : (
                 <>

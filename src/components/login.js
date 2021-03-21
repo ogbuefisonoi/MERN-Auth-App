@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 import UserContext from "../context/userContext";
 import Axios from "axios";
 import ErrorNotice from "./ErrorNotice";
+import config from "../config";
+
 // import StyledForm from "../styles";
 
 export default function Login() {
@@ -17,7 +19,7 @@ export default function Login() {
     try {
       const loginUser = { email, password };
       const loginRes = await Axios.post(
-        "http://localhost:5000/users/login",
+        `${config.baseUrl}/login`,
         loginUser
       );
       setUserData({
@@ -25,14 +27,14 @@ export default function Login() {
         user: loginRes.data.user,
       });
       localStorage.setItem("auth-token", loginRes.data.token);
-      history.push("/profile");
+      history.push("/dashboard");
     } catch (err) {
       err.response.data.msg && setError(err.response.data.msg);
     }
   };
   return (
-    <div className="page">
-      <h2>Log in</h2>
+    <div className="login_section">
+      <h2 className="title">Log in</h2>
       {error && (
         <ErrorNotice message={error} clearError={() => setError(undefined)} />
       )}
