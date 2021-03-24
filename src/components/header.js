@@ -10,7 +10,6 @@ export default function Header() {
 
   const register = () => history.push("/register");
   const login = () => history.push("/login");
-  const profile = () => history.push("/profile");
   const dashboard = () => history.push("/dashboard");
   const logout = () => {
     setUserData({
@@ -28,7 +27,6 @@ export default function Header() {
             {userData.user ? (
                 <>
                 <button onClick={dashboard}>Dashboard</button>
-                <button onClick={profile}>Profile</button>
                 <button onClick={logout}>Log out</button>
                 </>
             ) : (

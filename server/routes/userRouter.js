@@ -140,10 +140,31 @@ router.get("/dashboard", (req, res) => {
       error: null,
       data: {
         title: "My dashboard",
-        content: "dashboard content",
+        content: "Dashboard content",
         user: req.user,
       },
     });
 });
+
+//customers route
+router.get("/customers", (req, res) => {
+    res.json({
+      error: null,
+      data: {
+        title: "Customers",
+        content: "Customers content",
+        user: req.user,
+      },
+    });
+});
+
+router.post('/updateProfile', function(req, res){
+    var name = req.body.name;
+    var password = req.body.password;
+     
+    user.updateProfile(name, password, sessions.username, function(result){
+        res.send(result);
+    })
+  })
 
 module.exports = router;

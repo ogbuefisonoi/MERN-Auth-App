@@ -1,12 +1,11 @@
 import { useHistory } from "react-router-dom";
-import config from "../config";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 
 export default function DashNav() {
-    // const [dashboard, setDashboard] = useState(null);
     const profile = () => history.push("/profile");
     const dashboard = () => history.push("/dashboard");
+    const customers = () => history.push("/customers")
     const logout = () => {
         /* eslint-disable */
         const toLogout = confirm("Are you sure to logout ?");
@@ -33,9 +32,17 @@ export default function DashNav() {
             <li className="nav-item">
               <span
                 className="nav-link cursor-pointer"
+                onClick={() => customers()}
+              >
+                Customers
+              </span>
+            </li>
+            <li className="nav-item">
+              <span
+                className="nav-link cursor-pointer"
                 onClick={() => profile()}
               >
-                Profile
+                Account
               </span>
             </li>
             <li className="nav-item">

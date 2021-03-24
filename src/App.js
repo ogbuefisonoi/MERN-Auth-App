@@ -64,6 +64,8 @@ export default function App() {
               <Route path="/register" component={Register} />
               <Route path="/profile" render={authGuard(Profile)} />
               <Route path="/dashboard" render={authGuard(Dashboard)}/>
+              <Route path="/customers" render={authGuard(Dashboard)}/>
+
             </Switch>
           </div>
         </UserContext.Provider>
