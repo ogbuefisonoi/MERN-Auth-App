@@ -70,6 +70,14 @@ export default function Register() {
         />
 
         <input type="submit" value="Register" />
+        <div className="form-group">
+            <div className="float-left">
+              <span>Already have an account?</span>
+            </div>
+            <div className="float-right">
+              <a href="/Login">Login</a>
+            </div>
+        </div>
       </form>
     </div>
   );

@@ -6,6 +6,10 @@
 
 /* reset */
 
+.side-navigation-panel{
+  width: 30%;
+  float: left;
+}
 h2{
   font-size: 32px;
   text-align: center;
@@ -174,4 +178,13 @@ body {
 span.nav-link.cursor-pointer {
   font-weight: 600;
   color: cadetblue;
+}
+
+.custom-control.custom-checkbox{
+  display: flex;
+}
+input#customCheck1 {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 10px;
 }

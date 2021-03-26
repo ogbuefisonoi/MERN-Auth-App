@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import config from "../config";
+import config from "../../config";
 import Axios from "axios";
-import DashNav from "./DashNav";
-import { useHistory } from "react-router-dom";
+import DashNav from "../DashNav";
 
 export default function Profile() {
-    const [profile, setProfile] = useState(null);
-    const [name, setName] = useState("");
+    const [userName, setUserName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [checkPassword, setCheckPassword] = useState("");
 
     let header = {
       headers: {
@@ -16,37 +15,28 @@ export default function Profile() {
       }
     }
     const profileShow = () => {
-      Axios.get(`${config.baseUrl}/profile`,header).then(
+      Axios.get(`${config.baseUrl}/accounts/profile`,header).then(
         (res)=>{
           // console.log("profile show:", res.data)
-          setName(res.data.userName)
+          setUserName(res.data.userName)
           setEmail(res.data.email)
         }
       )
     }
     
     const profileUpdate = () => {
-      var self = this;
-      Axios.post('/updateProfile', {
-        name: name,
-        password: password
-      })
-      .then(function (response) {
-        if(response){
-          // history.push('/')  
-        }
-      })
-      .catch(function (error) {
-        console.log('error is ',error);
-      });
+      const updateUser = { email, password, userName };
+      Axios.post(`${config.baseUrl}/editProfile`, updateUser);
+
     }
 
     useEffect(() => {
       profileShow()
-    }, [])
+    })
 
     const submit = () =>{
-      profileUpdate();
+      if( password === checkPassword)
+        profileUpdate();
     }
 
       return (
@@ -57,7 +47,7 @@ export default function Profile() {
             <form className="form" onSubmit={submit}>
                 <label>Email</label>
                 <input
-                  className="user-email"
+                  className="text-gray-500"
                   type="email"
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
@@ -69,8 +59,8 @@ export default function Profile() {
                 <input
                   className="user-name"
                   type="text"
-                  onChange={(e) => setName(e.target.value)}
-                  value={name}
+                  onChange={(e) => setUserName(e.target.value)}
+                  value={userName}
                 />
 
                 <label>Password</label>
@@ -78,7 +68,14 @@ export default function Profile() {
                   className="user-password"
                   type="password"
                   onChange={(e) => setPassword(e.target.value)}
-                  value="password"
+                  value={password}
+                />
+                <label>Confirm Password</label>
+                <input
+                  className="user-password"
+                  type="password"
+                  onChange={(e) => setCheckPassword(e.target.value)}
+                  value={checkPassword}
                 />
 
                 <input type="submit" value="Update" />

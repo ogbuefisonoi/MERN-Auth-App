@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import DashNav from "./DashNav";
-import config from "../config";
+import DashNav from "../DashNav";
+import config from "../../config";
 
 export default function Customers() {
   const [customers, setCustomers] = useState(null);

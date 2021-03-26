@@ -32,6 +32,7 @@ export default function Login() {
       err.response.data.msg && setError(err.response.data.msg);
     }
   };
+
   return (
     <div className="login_section">
       <h2 className="title">Log in</h2>
@@ -40,24 +41,39 @@ export default function Login() {
       )}
       {/* <StyledForm> */}
         <form className="form" onSubmit={submit}>
-          <label htmlFor="login-email">Email</label>
-          <input
-            id="login-email"
-            type="email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <div className="form-group">
+            <label htmlFor="login-email">Email</label>
+            <input id="login-email" type="email" onChange={(e) => setEmail(e.target.value)}/>
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="login-password">Password</label>
+            <input id="login-password" type="password" onChange={(e) => setPassword(e.target.value)}/>
+          </div>
+          
+          <div className="form-group">
+            <div className="custom-control custom-checkbox">
+              <input type="checkbox" className="custom-control-input" id="customCheck1" />
+              <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
+            </div>
+          </div> 
 
-          <label htmlFor="login-password">Password</label>
-          <input
-            id="login-password"
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-
-          <input type="submit" value="Log in" />
+          <input type="submit" value="Log In" />
+          
+          <div className="form-group">
+            <div className="float-left">
+              <a href="/forgot_password">Forgot password?</a>
+            </div>
+            <div className="float-right">
+              <a href="/register">Signup</a>
+            </div>
+          </div>
         </form>
+        
       {/* </StyledForm> */}
       
     </div>
   );
 }
+
+

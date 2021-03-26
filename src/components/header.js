@@ -8,7 +8,6 @@ export default function Header() {
 
   const history = useHistory();
 
-  const register = () => history.push("/register");
   const login = () => history.push("/login");
   const dashboard = () => history.push("/dashboard");
   const logout = () => {
@@ -31,7 +30,6 @@ export default function Header() {
                 </>
             ) : (
                 <>
-                <button onClick={register}>Register</button>
                 <button onClick={login}>Log in</button>
                 </>
             )}

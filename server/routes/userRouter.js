@@ -3,6 +3,8 @@ const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken")
 const auth = require("../middleware/auth");
+// const sendEmail = require("../services/mail_password");
+const nodemailer = require('nodemailer');
 
 // register route
 router.post("/register",async (req, res) =>{
@@ -121,7 +123,7 @@ router.get("/", auth, async (req, res) => {
 });
 
 // profile route
-router.get("/profile", auth, async (req, res) => {
+router.get("/accounts/profile", auth, async (req, res) => {
     const user = await User.findById(req.user);
     res.json({
       userName: user.userName,
@@ -146,6 +148,84 @@ router.get("/dashboard", (req, res) => {
     });
 });
 
+router.get("/analytics", (req, res) => {
+    res.json({
+      error: null,
+      data: {
+        title: "Analytics",
+        content: "Content goes here.",
+        user: req.user,
+      },
+    });
+});
+
+router.get("/accounts/all", (req, res) => {
+    res.json({
+      error: null,
+      data: {
+        title: "Accounts List",
+        content: "Content goes here.",
+        user: req.user,
+      },
+    });
+});
+
+router.get("/accounts/add", (req, res) => {
+    res.json({
+      error: null,
+      data: {
+        title: "Accounts List",
+        content: "Content goes here.",
+        user: req.user,
+      },
+    });
+});
+
+router.get("/rep_management", (req, res) => {
+    res.json({
+      error: null,
+      data: {
+        title: "Accounts List",
+        content: "Content goes here.",
+        user: req.user,
+      },
+    });
+});
+
+router.get("/products/add", (req, res) => {
+    res.json({
+      error: null,
+      data: {
+        title: "Accounts List",
+        content: "Content goes here.",
+        user: req.user,
+      },
+    });
+});
+
+router.get("/products/detail", (req, res) => {
+    res.json({
+      error: null,
+      data: {
+        title: "Product Detail",
+        content: "Content goes here.",
+        user: req.user,
+      },
+    });
+});
+
+router.get("/products/add", (req, res) => {
+    res.json({
+      error: null,
+      data: {
+        title: "Product Detail",
+        content: "Content goes here.",
+        user: req.user,
+      },
+    });
+});
+
+
 //customers route
 router.get("/customers", (req, res) => {
     res.json({
@@ -158,13 +238,112 @@ router.get("/customers", (req, res) => {
     });
 });
 
-router.post('/updateProfile', function(req, res){
-    var name = req.body.name;
-    var password = req.body.password;
-     
-    user.updateProfile(name, password, sessions.username, function(result){
-        res.send(result);
-    })
-  })
+router.get("/customers/projects", (req, res) => {
+    res.json({
+      error: null,
+      data: {
+        title: "Customers",
+        content: "Customers content",
+        user: req.user,
+      },
+    });
+});
+
+router.get("/customers/members", (req, res) => {
+    res.json({
+      error: null,
+      data: {
+        title: "Customers",
+        content: "Customers content",
+        user: req.user,
+      },
+    });
+});
+
+router.put('/accounts/profile/update', async (req, res, next) => {
+    try{
+        const {email, userName, password} = req.body;
+        const user = await User.findOne ({email:email});
+        // console.log(user._id);
+        const update = {$set:{name: userName, password: password}};
+        User.findByIdAndUpdate(user._id, update, {new: true, useFindAndModify: false})
+        .then()
+    }
+    catch(err){
+        res.status(400).json({error: err.message});
+    }
+    
+});
+
+router.post('/editProfile', async function(req, res, next){
+        const {email, userName, password} = req.body;
+        if (!userName || !password)
+            return res.status(400).json({msg: "Not all fields have been entered."});
+
+        const user = await User.findOne ({email:email});
+        
+        console.log(user.userName);
+        user.email = email;
+        user.userName = userName; 
+        const salt = await bcrypt.genSalt(10);
+        const passwordHash = await bcrypt.hash(password, salt);
+        user.password = passwordHash;
+       
+        // don't forget to save!
+        user.save(function (err,user) {
+            if(err) return res.json({error:err});
+            return res.status(200).json({user:user});
+
+            // res.redirect('accounts/profile/');
+        }); 
+});
+
+router.post('/forgot_password', async (req, res, next) => {
+    // token is inside req.params.token
+    const {email} = req.body;
+    const user = await User.findOne({email: email});
+    
+    if (user == null) {
+        res.json('No account with this email address.');
+    } else {
+        // res.status(200).send({
+        // username: user.email,
+        // message: 'Password link accepted',
+        // })
+        try {
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                port: 465,
+                logger: true,
+                debug: true,
+                auth: {
+                    user: 'johnikems10thousand@gmail.com',
+                    pass: 'zmpdszkwggotlqyr' 
+                },
+            });
+        
+            const options  = {
+                from: 'johnikems10thousand@gmail.com',
+                to: email,
+                subject: "Reset Password",
+                text: "Your New Password is : u83y78e2h#" ,
+            };
+        
+            transporter.sendMail(options, (error, info) => {
+              if (error) {
+                return error;
+              } else {
+                // return res.status(200).json({
+                //   success: true,
+                // });
+                console.log("Email sent correctly!");
+              }
+            });
+          } catch (error) {
+            return error;
+          }
+    }
+    
+ });
 
 module.exports = router;
