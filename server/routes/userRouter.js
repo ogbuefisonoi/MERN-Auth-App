@@ -5,6 +5,9 @@ const jwt = require("jsonwebtoken")
 const auth = require("../middleware/auth");
 // const sendEmail = require("../services/mail_password");
 const nodemailer = require('nodemailer');
+const WooCommerceAPI = require('woocommerce-api')
+// require("dotenv").config();
+
 
 // register route
 router.post("/register",async (req, res) =>{
@@ -192,14 +195,19 @@ router.get("/rep_management", (req, res) => {
     });
 });
 
-router.get("/products/add", (req, res) => {
-    res.json({
-      error: null,
-      data: {
-        title: "Accounts List",
-        content: "Content goes here.",
-        user: req.user,
-      },
+router.get("/products/all", (req, response) => {
+  var WooCommerce = new WooCommerceAPI({
+    url: process.env.WOO_SITE_URL,
+    consumerKey: process.env.WOO_CONSUMER_KEY,
+    consumerSecret: process.env.WOO_CONSUMER_SEC,
+    wpAPI: true,
+    version: 'wc/v3'
+  });
+  
+    // console.log(res)
+    WooCommerce.get('products',function(err, data, res) {
+      response.json( JSON.parse(res) );
+      console.log(data.length);
     });
 });
 

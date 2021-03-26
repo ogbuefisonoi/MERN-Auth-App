@@ -27,6 +27,10 @@ mongoose.connect
     }
 )
 
+//set up Woocommerce
+var WooCommerceAPI = require('woocommerce-api');
+ 
+
 //routes
 
 app.use("/users", require("./routes/userRouter"));

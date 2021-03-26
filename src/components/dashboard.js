@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DashNav from "./DashNav";
 import config from "../config";
+import Breadcrumb from "./breadcrumb";
 
 export default function Dashboard() {
   const [dashboard, setDashboard] = useState(null);
@@ -22,6 +23,7 @@ export default function Dashboard() {
   return (
     <>
       <div className="dashboard_container">
+        <Breadcrumb />
         <h2 className="navbar-text">Welcome! {dashboard?.user?.name}</h2>
             <DashNav />
         <div className="dashboard_content">

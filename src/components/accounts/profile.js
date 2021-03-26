@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import config from "../../config";
 import Axios from "axios";
 import DashNav from "../DashNav";
+import Breadcrumb from "../breadcrumb";
 
 export default function Profile() {
     const [userName, setUserName] = useState("");
@@ -41,6 +42,7 @@ export default function Profile() {
 
       return (
         <div className="dashboard_container">
+          <Breadcrumb />
           <h2>Profile</h2>
           <DashNav />
           <div className="dashboard_content">
