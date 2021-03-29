@@ -4,8 +4,8 @@ import Axios from "axios";
 import DashNav from "../DashNav";
 import Breadcrumb from "../breadcrumb";
 
-export default function Profile() {
-    const [allproducts, setAllProducts] = useState("");
+export default function Products_List() {
+    const [allproducts, setAllProducts] = useState([]);
     
     const productShow = () => {
       Axios.get(`${config.baseUrl}/products/all`).then(
@@ -38,9 +38,9 @@ export default function Profile() {
                 </tr>
               </thead>
               <tbody>
-                {this.state.allproducts.map(product =>(
+                {allproducts.map(product =>(
                   <tr>
-                    <td>{product.image}</td>
+                    <td><img src={product.images[0].src}></img></td>
                     <td>{product.name}</td>
                     <td>{product.sku}</td>
                     <td>{product.stock}</td>

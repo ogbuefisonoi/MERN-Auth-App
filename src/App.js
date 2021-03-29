@@ -35,6 +35,32 @@ export default function App() {
       <Redirect to="/login" />
     );
   };
+  
+  useEffect(() => {
+    const checkLoggedIn = async () => {
+      let token = localStorage.getItem("auth-token");
+      if (token === null) {
+        localStorage.setItem("auth-token", "");
+        token = "";
+      }
+      const tokenRes = await Axios.post(
+        `${config.baseUrl}/tokenIsValid`,
+        null,
+        { headers: { "x-auth-token": token } }
+      );
+      if (tokenRes.data) {
+        const userRes = await Axios.get(`${config.baseUrl}/`, {
+          headers: { "x-auth-token": token },
+        });
+        setUserData({
+          token,
+          user: userRes.data,
+        });
+      }
+    };
+
+    checkLoggedIn();
+  }, []);
 
   return (
     <>
