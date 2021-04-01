@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import DashNav from "./DashNav";
+import DashNav from "./sections/DashNav";
 import config from "../config";
-import Breadcrumb from "./breadcrumb";
+import Breadcrumb from "./sections/breadcrumb";
 
 export default function Dashboard() {
   const [dashboard, setDashboard] = useState(null);

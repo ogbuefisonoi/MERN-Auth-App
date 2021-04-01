@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import config from "../../config";
 import Axios from "axios";
-import DashNav from "../DashNav";
-import Breadcrumb from "../breadcrumb";
+import DashNav from "../sections/DashNav";
+import Breadcrumb from "../sections/breadcrumb";
 
 export default function Profile() {
     const [userName, setUserName] = useState("");

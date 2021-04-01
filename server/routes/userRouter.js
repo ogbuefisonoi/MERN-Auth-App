@@ -268,20 +268,20 @@ router.get("/customers/members", (req, res) => {
     });
 });
 
-router.put('/accounts/profile/update', async (req, res, next) => {
-    try{
-        const {email, userName, password} = req.body;
-        const user = await User.findOne ({email:email});
-        // console.log(user._id);
-        const update = {$set:{name: userName, password: password}};
-        User.findByIdAndUpdate(user._id, update, {new: true, useFindAndModify: false})
-        .then()
-    }
-    catch(err){
-        res.status(400).json({error: err.message});
-    }
+// router.put('/accounts/profile/update', async (req, res, next) => {
+//     try{
+//         const {email, userName, password} = req.body;
+//         const user = await User.findOne ({email:email});
+//         // console.log(user._id);
+//         const update = {$set:{name: userName, password: password}};
+//         User.findByIdAndUpdate(user._id, update, {new: true, useFindAndModify: false})
+//         .then()
+//     }
+//     catch(err){
+//         res.status(400).json({error: err.message});
+//     }
     
-});
+// });
 
 router.post('/editProfile', async function(req, res, next){
         const {email, userName, password} = req.body;

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import Axios from "axios";
-import ErrorNotice from "./ErrorNotice";
-import config from "../config";
+import ErrorNotice from "../services/ErrorNotice";
+import config from "../../config";
 import { useHistory } from "react-router-dom";
 
 // import StyledForm from "../styles";
