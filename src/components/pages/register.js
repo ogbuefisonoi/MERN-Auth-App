@@ -1,11 +1,14 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import UserContext from "../../context/userContext";
-import Axios from "axios";
 import ErrorNotice from "../services/ErrorNotice";
-import config from "../../config";
+import { useDispatch } from 'react-redux'
+import { withRouter } from "react-router-dom";
+import { registerUser } from "../../actions/user.actions";
 
-export default function Register() {
+function Register(props) {
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [passwordCheck, setPasswordCheck] = useState();
@@ -17,20 +20,19 @@ export default function Register() {
 
   const submit = async (e) => {
     e.preventDefault();
-
     try {
-      const newUser = { email, password, passwordCheck, userName };
-      await Axios.post(`${config.baseUrl}/register`, newUser);
-      const loginRes = await Axios.post(`${config.baseUrl}/login`, {
-        email,
-        password,
-      });
-      setUserData({
-        token: loginRes.data.token,
-        user: loginRes.data.user,
-      });
-      localStorage.setItem("auth-token", loginRes.data.token);
-      history.push("/dashboard");
+      const user = { email, password, passwordCheck, userName};
+      
+      dispatch(registerUser(user)).then(res =>{
+        if(res.payload){
+          localStorage.setItem("auth-token", res.data);
+          props.history.push("/dashboard");
+        }
+        else{
+
+        }
+      })
+      // localStorage.setItem("auth-token", loginRes.data.token);
     } catch (err) {
       err.response.data.msg && setError(err.response.data.msg);
     }
@@ -82,3 +84,5 @@ export default function Register() {
     </div>
   );
 }
+
+export default withRouter(Register)
