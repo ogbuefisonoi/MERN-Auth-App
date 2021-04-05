@@ -8,16 +8,22 @@ import { registerUser } from "../../actions/user.actions";
 
 function Register(props) {
   const dispatch = useDispatch();
+  const history = useHistory();
 
+  const login = () => {
+    history.push("/login");
+  }
+
+  const forgot_password = () =>{
+    history.push("/forgot_password");
+  }
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [passwordCheck, setPasswordCheck] = useState();
   const [userName, setUserName] = useState();
   const [error, setError] = useState();
 
-  const { setUserData } = useContext(UserContext);
-  const history = useHistory();
-
+  // const { setUserData } = useContext(UserContext);
   const submit = async (e) => {
     e.preventDefault();
     try {
@@ -25,7 +31,7 @@ function Register(props) {
       
       dispatch(registerUser(user)).then(res =>{
         if(res.payload){
-          localStorage.setItem("auth-token", res.data);
+          localStorage.setItem("auth-token", res.payload.token);
           props.history.push("/dashboard");
         }
         else{
@@ -77,7 +83,7 @@ function Register(props) {
               <span>Already have an account?</span>
             </div>
             <div className="float-right">
-              <a href="/Login">Login</a>
+              <a href="#" onClick={login}>Login</a>
             </div>
         </div>
       </form>

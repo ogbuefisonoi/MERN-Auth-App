@@ -51,7 +51,6 @@ export default function Profile() {
                 <input
                   className="text-gray-500"
                   type="email"
-                  onChange={(e) => setEmail(e.target.value)}
                   value={email}
                   disabled = "disabled"
 

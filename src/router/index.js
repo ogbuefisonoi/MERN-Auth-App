@@ -85,8 +85,7 @@ export default function App() {
               <Route path="/customers" render={authGuard(Customers)}/>
               <Route path="/customers/projects" render={authGuard(Projects)}/>
               <Route path="/customers/members" render={authGuard(Members)}/>
-
-
+              <Route path="/tokenIsValid" componenet={Login}/>
             </Switch>
           </div>
         </UserContext.Provider>

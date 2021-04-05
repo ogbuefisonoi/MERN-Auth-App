@@ -10,13 +10,21 @@ import { withRouter } from "react-router-dom";
 
 function Login(props) {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [error, setError] = useState();
-  const { setUserData } = useContext(UserContext);
+  // const { setUserData } = useContext(UserContext);
   // const history = useHistory();
+  const register = () => {
+    history.push("/register");
+  }
 
+  const forgot_password = () =>{
+    history.push("/forgot_password");
+  }
+  
   const submit = async (e) => {
     e.preventDefault();
     try {
@@ -24,7 +32,8 @@ function Login(props) {
       
       dispatch(loginUser(user)).then(res =>{
         if(res.payload){
-          localStorage.setItem("auth-token", res.data);
+          console.log("res.payload", res)
+          localStorage.setItem("auth-token", res.payload.token);
           props.history.push("/dashboard");
         }
         else{
@@ -66,10 +75,10 @@ function Login(props) {
           
           <div className="form-group">
             <div className="float-left">
-              <a href="/forgot_password">Forgot password?</a>
+              <a onClick={forgot_password}>Forgot password?</a>
             </div>
             <div className="float-right">
-              <a href="/register">Signup</a>
+              <a onClick={register}>Signup</a>
             </div>
           </div>
         </form>

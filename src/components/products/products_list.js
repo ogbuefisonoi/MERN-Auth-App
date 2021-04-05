@@ -28,25 +28,25 @@ export default function Products_List() {
             <table class="table-auto">
               <thead>
                 <tr>
-                  <th>Image</th>
-                  <th>Name</th>
-                  <th>SKU</th>
-                  <th>Stock</th>
-                  <th>Price</th>
-                  <th>Tags</th>
-                  <th>Date</th>
+                  <th className="w-28	text-center">Image</th>
+                  <th className="w-28	text-center">Name</th>
+                  <th className="w-28	text-center">SKU</th>
+                  <th className="w-28	text-center">Stock</th>
+                  <th className="w-28	text-center">Price</th>
+                  <th className="w-28	text-center">Tags</th>
+                  <th className="w-28	text-center">Date</th>
                 </tr>
               </thead>
               <tbody>
                 {allproducts.map(product =>(
                   <tr>
-                    <td><img src={product.images[0].src}></img></td>
-                    <td>{product.name}</td>
-                    <td>{product.sku}</td>
-                    <td>{product.stock}</td>
-                    <td>{product.price}</td>
-                    <td>{product.tags}</td>
-                    <td>{product.date}</td>
+                    <td className="w-28	text-center"><img src={product.images[0].src}></img></td>
+                    <td className="w-28	text-center">{product.name}</td>
+                    <td className="w-28	text-center">{product.sku}</td>
+                    <td className="w-28	text-center">{product.stock}</td>
+                    <td className="w-28	text-center">${product.price}</td>
+                    <td className="w-28	text-center">{product.tags}</td>
+                    <td className="w-28	text-center">{product.date}</td>
                   </tr>
                 ))}
                 

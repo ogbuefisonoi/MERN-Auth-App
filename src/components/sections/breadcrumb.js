@@ -21,8 +21,6 @@ export default class Breadcrumb extends Component {
             <div>
                 <ol className = "flex capitalize">
                     {this.state.crumbs.map((crumb, index) => {
-                        console.log("index", index);
-                        console.log(sublink[index]);
                         return index !== last & index>0 ?(
                             <li key = {index}>
                                 <Link to = {sublink[index]}>{crumb}</Link>
