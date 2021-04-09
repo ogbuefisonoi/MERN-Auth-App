@@ -25,28 +25,26 @@ export default function Products_List() {
           <h2>Products List</h2>
           <DashNav />
           <div className="dashboard_content">
-            <table class="table-auto">
+            <table className="table-auto">
               <thead>
-                <tr>
-                  <th className="w-28	text-center">Image</th>
-                  <th className="w-28	text-center">Name</th>
+                <tr className="border-b border-gray-200">
+                  <th className="w-28	text-center"></th>
+                  <th className="w-96	text-center">Name</th>
                   <th className="w-28	text-center">SKU</th>
                   <th className="w-28	text-center">Stock</th>
                   <th className="w-28	text-center">Price</th>
-                  <th className="w-28	text-center">Tags</th>
-                  <th className="w-28	text-center">Date</th>
+                  <th className="w-28	text-center">Preview</th>
                 </tr>
               </thead>
               <tbody>
                 {allproducts.map(product =>(
-                  <tr>
-                    <td className="w-28	text-center"><img src={product.images[0].src}></img></td>
-                    <td className="w-28	text-center">{product.name}</td>
-                    <td className="w-28	text-center">{product.sku}</td>
-                    <td className="w-28	text-center">{product.stock}</td>
-                    <td className="w-28	text-center">${product.price}</td>
-                    <td className="w-28	text-center">{product.tags}</td>
-                    <td className="w-28	text-center">{product.date}</td>
+                  <tr className="border-b h-10 border-gray-200">
+                    <td className="w-28	h-10 text-center"><img src={product.images[0].src}></img></td>
+                    <td className="w-96	h-10 text-center">{product.name}</td>
+                    <td className="w-28	h-10 text-center">{product.sku}</td>
+                    <td className="w-28	h-10 text-center">{product.stock}</td>
+                    <td className="w-28	h-10 text-center">${product.price}</td>
+                    <td className="w-28	h-10 text-center"><img className="m-auto cursor-auto" src="https://img.icons8.com/material-rounded/24/000000/preview-pane.png"></img></td>
                   </tr>
                 ))}
                 

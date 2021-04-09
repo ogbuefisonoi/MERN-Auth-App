@@ -23,12 +23,12 @@ export default class Breadcrumb extends Component {
                     {this.state.crumbs.map((crumb, index) => {
                         return index !== last & index>0 ?(
                             <li key = {index}>
-                                <Link to = {sublink[index]}>{crumb}</Link>
+                                {/* <Link to = {sublink[index]}>{crumb}</Link> */}
                                 <span >/</span>
                             </li>
                         ):(
                             <li key = {index}>
-                                <Link to = {sublink[index]}>{crumb}</Link>
+                                {/* <Link to = {sublink[index]}>{crumb}</Link> */}
                             </li>
                         )
                     })

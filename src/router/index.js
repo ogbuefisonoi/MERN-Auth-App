@@ -64,7 +64,7 @@ export default function App() {
 
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter> 
         <UserContext.Provider value={{ userData, setUserData }}>
           <Header />
           <div className="container">
@@ -75,13 +75,13 @@ export default function App() {
               <Route path="/accounts/profile" render={authGuard(Profile)} />
               <Route path="/dashboard" render={authGuard(Dashboard)}/>
               <Route path="/forgot_password" component={Forgot_Password}/>
-              <Route path="/analytics" component={Analytics}/>
-              <Route path="/accounts/all" component={Accounts_List}/>
-              <Route path="/accounts/add" component={Accounts_Add}/>
-              <Route path="/rep_management" component={Rep_Management}/>
-              <Route path="/products/all" component={Products_List}/>
-              <Route path="/products/detail" component={Product_Detail}/>
-              <Route path="/products/add" component={Product_Add}/>
+              <Route path="/analytics" render={authGuard(Analytics)}/>
+              <Route path="/accounts/all" render={authGuard(Accounts_List)}/>
+              <Route path="/accounts/add" render={authGuard(Accounts_Add)}/>
+              <Route path="/rep_management" render={authGuard(Rep_Management)}/>
+              <Route path="/products/all" render={authGuard(Products_List)}/>
+              <Route path="/products/detail" render={authGuard(Product_Detail)}/>
+              <Route path="/products/add" render={authGuard(Product_Add)}/>
               <Route path="/customers" render={authGuard(Customers)}/>
               <Route path="/customers/projects" render={authGuard(Projects)}/>
               <Route path="/customers/members" render={authGuard(Members)}/>

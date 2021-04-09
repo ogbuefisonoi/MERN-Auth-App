@@ -1,6 +1,5 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import UserContext from "../../context/userContext";
 import ErrorNotice from "../services/ErrorNotice";
 import { loginUser } from "../../actions/user.actions";
 import { useDispatch } from 'react-redux'
@@ -15,8 +14,6 @@ function Login(props) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [error, setError] = useState();
-  // const { setUserData } = useContext(UserContext);
-  // const history = useHistory();
   const register = () => {
     history.push("/register");
   }

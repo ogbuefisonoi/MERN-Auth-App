@@ -52,4 +52,6 @@ var WooCommerceAPI = require('woocommerce-api');
 
 //routes
 
-app.use("/users", require("./routes/userRouter"));
+app.use("/users", require("./routes/user.router"));
+app.use("/users", require("./routes/product.router"));
+
