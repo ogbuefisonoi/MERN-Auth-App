@@ -150,17 +150,6 @@ router.get("/dashboard", (req, res) => {
     });
 });
 
-router.get("/analytics", (req, res) => {
-    res.json({
-      error: null,
-      data: {
-        title: "Analytics",
-        content: "Content goes here.",
-        user: req.user,
-      },
-    });
-});
-
 router.get("/accounts/all", (req, res) => {
     res.json({
       error: null,

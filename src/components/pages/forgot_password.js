@@ -15,7 +15,7 @@ export default function Forgot_Password() {
     e.preventDefault();
 
     try{
-        await Axios.post(`${config.baseUrl}/forgot_password`, email)
+        await Axios.post(`${config.users_baseUrl}/forgot_password`, email)
             .then(
                 // setError("Sent successfully!");
                 history.push('/login')

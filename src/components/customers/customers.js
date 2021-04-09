@@ -7,7 +7,7 @@ export default function Customers() {
   const [customers, setCustomers] = useState(null);
 
   useEffect(() => {
-    fetch(`${config.baseUrl}/customers`, {
+    fetch(`${config.users_baseUrl}/customers`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

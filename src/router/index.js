@@ -44,12 +44,12 @@ export default function App() {
         token = "";
       }
       const tokenRes = await Axios.post(
-        `${config.baseUrl}/tokenIsValid`,
+        `${config.users_baseUrl}/tokenIsValid`,
         null,
         { headers: { "x-auth-token": token } }
       );
       if (tokenRes.data) {
-        const userRes = await Axios.get(`${config.baseUrl}/`, {
+        const userRes = await Axios.get(`${config.users_baseUrl}/`, {
           headers: { "x-auth-token": token },
         });
         setUserData({

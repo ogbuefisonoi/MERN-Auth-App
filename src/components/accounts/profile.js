@@ -16,7 +16,7 @@ export default function Profile() {
       }
     }
     const profileShow = () => {
-      Axios.get(`${config.baseUrl}/accounts/profile`,header).then(
+      Axios.get(`${config.users_baseUrl}/accounts/profile`,header).then(
         (res)=>{
           // console.log("profile show:", res.data)
           setUserName(res.data.userName)
@@ -27,7 +27,7 @@ export default function Profile() {
     
     const profileUpdate = () => {
       const updateUser = { email, password, userName };
-      Axios.post(`${config.baseUrl}/editProfile`, updateUser);
+      Axios.post(`${config.users_baseUrl}/editProfile`, updateUser);
 
     }
 

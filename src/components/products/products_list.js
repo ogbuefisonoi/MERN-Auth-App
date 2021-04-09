@@ -8,13 +8,16 @@ export default function Products_List() {
     const [allproducts, setAllProducts] = useState([]);
     
     const productShow = () => {
-      Axios.get(`${config.baseUrl}/products/all`).then(
+      Axios.get(`${config.products_baseUrl}/all`).then(
         (res)=>{
           setAllProducts(res.data)   
         }
       )
     }
     
+    const detailShow = () => {
+
+    }
     useEffect(() => {
       productShow()
     })
@@ -44,7 +47,13 @@ export default function Products_List() {
                     <td className="w-28	h-10 text-center">{product.sku}</td>
                     <td className="w-28	h-10 text-center">{product.stock}</td>
                     <td className="w-28	h-10 text-center">${product.price}</td>
-                    <td className="w-28	h-10 text-center"><img className="m-auto cursor-auto" src="https://img.icons8.com/material-rounded/24/000000/preview-pane.png"></img></td>
+                    <td className="w-28	h-10 text-center">
+                      <img 
+                      className="m-auto cursor-pointer hover:scale-110 motion-reduce:transform-none" 
+                      src="https://img.icons8.com/material-rounded/24/000000/preview-pane.png"
+                      onClick={detailShow}
+                      >
+                      </img></td>
                   </tr>
                 ))}
                 

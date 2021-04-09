@@ -7,7 +7,7 @@ export default function Dashboard() {
   const [dashboard, setDashboard] = useState(null);
 
   useEffect(() => {
-    fetch(`${config.baseUrl}/dashboard`, {
+    fetch(`${config.users_baseUrl}/dashboard`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
