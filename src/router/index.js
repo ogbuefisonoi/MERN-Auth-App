@@ -10,7 +10,7 @@ import UserContext from "../context/userContext";
 import { Redirect } from 'react-router';
 import config from "../config";
 import Forgot_Password from "../components/pages/forgot_password";
-import Analytics from "../components/analytics";
+import Analytics from "../components/analytics/index";
 import Accounts_List from "../components/accounts/accounts_list";
 import Profile from "../components/accounts/profile";
 import Accounts_Add from "../components/accounts/account_add";
@@ -80,7 +80,7 @@ export default function App() {
               <Route path="/accounts/add" render={authGuard(Accounts_Add)}/>
               <Route path="/rep_management" render={authGuard(Rep_Management)}/>
               <Route path="/products/all" render={authGuard(Products_List)}/>
-              <Route path="/products/detail" render={authGuard(Product_Detail)}/>
+              <Route path="/products/detail/:_id" render={authGuard(Product_Detail)}/>
               <Route path="/products/add" render={authGuard(Product_Add)}/>
               <Route path="/customers" render={authGuard(Customers)}/>
               <Route path="/customers/projects" render={authGuard(Projects)}/>

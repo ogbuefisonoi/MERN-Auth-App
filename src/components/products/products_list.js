@@ -3,6 +3,7 @@ import config from "../../config";
 import Axios from "axios";
 import DashNav from "../sections/DashNav";
 import Breadcrumb from "../sections/breadcrumb";
+import {Link} from "react-router-dom"
 
 export default function Products_List() {
     const [allproducts, setAllProducts] = useState([]);
@@ -48,12 +49,15 @@ export default function Products_List() {
                     <td className="w-28	h-10 text-center">{product.stock}</td>
                     <td className="w-28	h-10 text-center">${product.price}</td>
                     <td className="w-28	h-10 text-center">
-                      <img 
+                    <Link to = {"/products/detail/"+product.id}>  <img 
                       className="m-auto cursor-pointer hover:scale-110 motion-reduce:transform-none" 
                       src="https://img.icons8.com/material-rounded/24/000000/preview-pane.png"
                       onClick={detailShow}
                       >
-                      </img></td>
+                      </img>
+                    </Link>
+                    </td>
+                   
                   </tr>
                 ))}
                 
