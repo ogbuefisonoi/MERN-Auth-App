@@ -33,7 +33,7 @@ export default function Profile() {
 
     useEffect(() => {
       profileShow()
-    })
+    }, [])
 
     const submit = () =>{
       if( password === checkPassword)

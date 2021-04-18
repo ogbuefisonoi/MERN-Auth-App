@@ -21,7 +21,7 @@ export default function Products_List() {
     }
     useEffect(() => {
       productShow()
-    })
+    }, [])
 
     return (
         <div className="dashboard_container">

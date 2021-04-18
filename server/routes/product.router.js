@@ -27,7 +27,7 @@ router.get("/all", (req, res) => {
 
 router.get("/:_id", (req, res) => {
     const _id = req.params._id;
-    console.log("_id", _id)
+    // console.log("_id", _id)
     WooCommerce.get('products/'+_id)
         .then((response) =>{
           if(response){
@@ -53,5 +53,18 @@ router.get("/add", (req, res) => {
       },
     });
 });
+
+router.post('/updateProduct', (req, response) => {
+	  
+  var url = "products/" + req.body._id;
+    const data = req.body;
+    console.log(data);
+	  WooCommerce.put(url, data).then(res => {
+      return response.json(res.data);
+    })
+    .catch(err=>{
+      return response.json(err.data);
+    });
+} );
 
 module.exports = router;

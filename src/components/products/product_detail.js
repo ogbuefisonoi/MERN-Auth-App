@@ -4,59 +4,103 @@ import Axios from "axios";
 import DashNav from "../sections/DashNav";
 import Breadcrumb from "../sections/breadcrumb";
 import {useParams} from "react-router-dom"
+import { useHistory } from "react-router-dom";
 
 export default function Products_Details() {
+    const history = useHistory();
     const [product, setProduct] = useState([]);
-    const _id = useParams()
-    console.log(_id);
+    const [name, setName] = useState("");
+    const [sku, setSku] = useState("");
+    const [stock, setStock] = useState("");
+    const [price, setPrice] = useState("");
+
+    const {_id} = useParams();
+    // console.log(_id);
+
+    const handleCancel = () => {
+      history.push("/products/all")
+    }
+
+    const handleSubmit = () => {
+      const regular_price = price;
+      const updateProduct = { name, sku, stock, regular_price, _id };
+      Axios.post(`${config.products_baseUrl}/updateProduct`, updateProduct).then(res=>{
+        console.log("res",res.data)
+      });
+      history.push("/products/all")
+    }
+
     const productShow = () => {
-      Axios.get(`${config.products_baseUrl}/`+_id).then(
-        (res)=>{
+      Axios.get(`${config.products_baseUrl}/`+_id)
+        .then((res)=>{
           setProduct(res.data);
-          console.log(res.data);   
-        }
-      )
+          setName(res.data.name);
+          setSku(res.data.sku);
+          setStock(res.data.stock);
+          setPrice(res.data.price);
+
+          // console.log("res.data", res.data);   
+        })
+        .catch((err) => alert(err))
     }
     
-    const detailShow = () => {
-
-    }
     useEffect(() => {
       productShow()
-    })
+    }, [])
 
     return (
         <div className="dashboard_container">
           <Breadcrumb />
           <DashNav />
           <div className="dashboard_content">
-            <table className="table-auto">
-              <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="w-28	text-center"></th>
-                  <th className="w-96	text-center">Name</th>
-                  <th className="w-28	text-center">SKU</th>
-                  <th className="w-28	text-center">Stock</th>
-                  <th className="w-28	text-center">Price</th>
-                </tr>
-              </thead>
-              <tbody>
-                  <tr className="border-b h-10 border-gray-200">
-                    <td className="w-28	h-10 text-center">11</td>
-                    <td className="w-96	h-10 text-center">{product.name}</td>
-                    <td className="w-28	h-10 text-center">{product.sku}</td>
-                    <td className="w-28	h-10 text-center">{product.stock}</td>
-                    <td className="w-28	h-10 text-center">${product.price}</td>
-                    <td className="w-28	h-10 text-center">
-                      <img 
-                      className="m-auto cursor-pointer hover:scale-110 motion-reduce:transform-none" 
-                      src="https://img.icons8.com/android/24/000000/edit.png"
-                      >
-                      </img></td>
-                  </tr>
-             
-              </tbody>
-            </table>
+              <div className="w-2/5 float-left	">
+                {/* <img src={product.images[0].src}></img> */}
+              </div>
+              <div className="w-2/5 float-right	">
+                  <div className="m-8">
+                      <label className="block">Name:</label> 
+                      <input 
+                      className="border-gray-200 text-gray-600	"
+                      type="text" 
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      ></input>
+                  </div>
+                  <div className="m-8">
+                      <label className="block">SKU:</label> 
+                      <input 
+                      className="border-gray-200 text-gray-600	"
+                      type="text" 
+                      value={sku}
+                      onChange={(e) => setSku(e.target.value)}
+                      ></input>
+                  </div>
+                  <div className="m-8">
+                      <label className="block">Stock:</label> 
+                      <input 
+                      className="border-gray-200 text-gray-600	"
+                      type="text" 
+                      value={stock}
+                      onChange={(e) => setStock(e.target.value)}
+                      ></input>
+                  </div>
+                  <div className="m-8">
+                      <label className="block">Price:</label> 
+                      $<input 
+                      className="border-gray-200 text-gray-600	"
+                      type="text" 
+                      value={price}
+                      onChange={(e) => setPrice(e.target.value)}
+                      ></input>
+                  </div>
+                  <div className="m-8">
+                      <input className="w-2/5	border border-solid	border-gray-500 cursor-pointer"
+                      type="button" value="Cancel" onClick={handleCancel}></input>
+                      <input className="w-2/5	border border-solid	border-gray-500 m-2"
+                      type="submit" value="Update" onClick={handleSubmit}></input>
+
+                  </div>
+              </div>  
           </div>
         </div>
       )

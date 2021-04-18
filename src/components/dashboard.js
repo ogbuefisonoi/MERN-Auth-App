@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import DashNav from "./sections/DashNav";
 import config from "../config";
 import Breadcrumb from "./sections/breadcrumb";
+import { withRouter } from "react-router-dom";
 
-export default function Dashboard() {
+function Dashboard() {
   const [dashboard, setDashboard] = useState(null);
 
   useEffect(() => {
@@ -35,3 +36,5 @@ export default function Dashboard() {
     </>
   );
 };
+
+export default withRouter(Dashboard);

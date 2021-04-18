@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import ErrorNotice from "../services/ErrorNotice";
 import { loginUser } from "../../actions/user.actions";
 import { useDispatch } from 'react-redux'
@@ -9,17 +8,16 @@ import { withRouter } from "react-router-dom";
 
 function Login(props) {
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [error, setError] = useState();
   const register = () => {
-    history.push("/register");
+    props.history.push("/register");
   }
 
   const forgot_password = () =>{
-    history.push("/forgot_password");
+    props.history.push("/forgot_password");
   }
   
   const submit = async (e) => {
